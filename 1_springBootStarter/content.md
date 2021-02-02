@@ -31,5 +31,25 @@ maven, gradle 라이브러리 관리 툴.
 스프링부트에서 resources/static/index.html 로 파일을 만들어두면, 자동으로 welcome page로 설정이된다.   
 
 ## 2. 스프링 웹 개발 기초
+### MVC와 템플릿 엔진
+MVC: Model, View, Controller
+
+### API
+String 반환 + @ResponseBody   
+viewResolver 없이 단순 문자열만 반환됨   
+
+Object + @ResponseBody   
+객체가 json으로 반환됨   
+
+- `@ResponseBody`
+    - http의 body에 문자 내용을 직접 반환
+    - `viewResolver` 대신 `HttpMessageConverter`가 동작
+    - 기본 문자처리: `StringHttpMessageConverter`
+    - 기본 객체처리: `MappingJackson2HttpMessageConverter`
+    - byte 처리 등등 기타 여러 HttpMessageConverter 가 기본으로 등록되어 있음.
+
+-> 참고: 클라이언트의 HTTP Accept 헤더와 서버의 컨트롤러 반환 타입 정보 둘을 조합하여 `HttpMessageConverter`가 선택된다. 
+
+## 3. 회원관리예제 - 백엔드 개발
 
 
