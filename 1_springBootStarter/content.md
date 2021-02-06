@@ -96,3 +96,76 @@ public class SpringConfig {
 
 ## 5. 웹 MVC 개발
 - "/" 에 대한 우선순위에서 웰컴페이지는 후순위를 가진다.
+
+## 6. 스프링 DB 접근 기술
+- 교육용으로 h2 사용
+- Config를 통해 기존의 memoryRepo에서 jdbcRepo로 변경하는데, application의 config파일에 대한 변경 이외의 변경이 없다! -> 스프링의 장점 중 하나.   
+
+### 스프링 통합 테스트
+`@SpringBootTest`: 스프링 컨테이너와 테스트를 함께 실행   
+`@Transactional`: 테스트케이스에 이 어노테이션이 있으면, 테스트시작전 트랜잭션을 시작하고, 테스트완료시 롤백한다.   
+
+### JdbcTemplate
+- `JdbcTemplate`를 사용한다.
+- 생성자에, new JdbcTemplate(dataSource)
+- document를 보면 자세하게 잘 나와있다.
+- 아래와 같은 식으로 사용된다.
+```java
+public class JdbcTemplateMemberRepository implements MemberRepository {
+    private final JdbcTemplate jdbcTemplate;
+
+    public JdbcTemplateMemberRepository(DataSource dataSource) {
+        jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
+    @Override
+    public Member save(Member member) {
+        SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
+
+        jdbcInsert.withTableName("member").usingGeneratedKeyColumns("id");
+
+        Map<String, Object> parameters = new HashMap<>(); parameters.put("name", member.getName());
+
+        Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
+
+        member.setId(key.longValue());
+
+        return member;
+    }
+
+    @Override
+    public Optional<Member> findById(Long id) {
+        List<Member> result = jdbcTemplate.query("select * from member where id = ?", memberRowMapper(), id);
+
+        return result.stream().findAny();
+    }
+    
+    @Override
+    public List<Member> findAll() {
+        return jdbcTemplate.query("select * from member", memberRowMapper());
+    }
+
+    @Override
+    public Optional<Member> findByName(String name) {
+        List<Member> result = jdbcTemplate.query("select * from member where name = ?", memberRowMapper(), name);
+
+        return result.stream().findAny();
+    }
+
+    private RowMapper<Member> memberRowMapper() {
+        return (rs, rowNum) -> {
+            Member member = new Member(); member.setId(rs.getLong("id"));
+            member.setName(rs.getString("name")); return member;
+        };
+    }
+}
+```
+
+### JPA
+- `@Entity` : JPA에서 관리하는 엔터티
+- `@Id`, `@Column` 으로 db와 연결
+
+### 스프링 데이터 JPA
+- JPA를 도와주는 도구이다. JPA를 모르고 쓰면 많은 문제들을 해결하지 못할 수 있다.
+- 메서드 이름만으로 조회 기능 제공
+- 복잡한 동적 쿼리는 Querydsl이라는 라이브러리를 사용한다.
