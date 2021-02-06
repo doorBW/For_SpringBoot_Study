@@ -60,3 +60,36 @@ Object + @ResponseBody
 ### 회원 리포지토리 테스트 케이스 작성
 - 테스트 케이스의 함수 실행 순서는 보장이 되지 않는다.   
 -> @AfterEach annotation을 이용하여 각 테스트 함수가 종료된 후 clear처리 가능.   
+
+## 4. 스프링 빈과 의존관계
+### 컴포넌트 스캔방식
+- `@Autowired`가 생성자에 있으면 스프링이 연관된 객체를 스프링 컨테이너에서 찾아서 넣어준다. 이렇게 객체 의존관계를 외부에서 넣어주는 것을 DI(Dependency Injection), 의존성 주입이라고 한다.   
+-> 객체를 스프링컨테이너에서 가져온다.   
+근데 순수한 자바클래스와 같은건 스프링컨테이너에 안올라가있다!   
+`@Component`(`@Controller`,`@Service`,`@Repository`얘네는 컴포넌트 어노테이션을 포함하고있다.)를 넣어주면 스프링 컨테이너에 들어가있는다.   
+-> **컴포넌트 스캔방식**   
+   
+? 아무때나 @Component를 넣어도 되나?   
+SpringApplication 하위는 자동으로 찾아서 등록한다. 하위패키지가 아니면 컴포넌트스캔을 안한다. -> 따로 설정을 하면 되긴 됨   
+   
+- 스프링은 스프링컨테이너에 스프링 빈을 등록할때, 기본으로 싱글톤으로 등록함.(유일하게 하나만 등록하고 공유함.) 즉, 같은 스프링 빈이면 모두 같은 인스턴스이다, 물론 설정으로 싱글톤이 아니게 설정할 수 있다.   
+
+### 자바 코드로 직접 스프링 빈 등록하기
+- `Configuration`을 가지는 클래스를 만들고, `@Bean` 을 이용해서 직접 스프링 빈에 등록해준다.
+ex)
+```java
+@Configuration
+public class SpringConfig {
+    @Bean
+    public MemberService memberService() {
+        return new MemberService();
+    }
+
+    @Bean
+    public MemberRepository memberRepository() {
+        return new MemberRepository();
+    }
+}
+```
+
+컴포넌트 스캔방식이 편할테지만, 각각 장단점이 있다.   
