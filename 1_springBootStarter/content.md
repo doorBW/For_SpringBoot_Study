@@ -169,3 +169,7 @@ public class JdbcTemplateMemberRepository implements MemberRepository {
 - JPA를 도와주는 도구이다. JPA를 모르고 쓰면 많은 문제들을 해결하지 못할 수 있다.
 - 메서드 이름만으로 조회 기능 제공
 - 복잡한 동적 쿼리는 Querydsl이라는 라이브러리를 사용한다.
+
+## 7. AOP
+- **Aspect Oriented Programming**   
+공통 관심 사항과 핵심 관심 사항을 분리하는 것   
