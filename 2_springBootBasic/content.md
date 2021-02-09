@@ -88,3 +88,4 @@ JPA의 구현체들: 하이버네이트, EclipseLink, 기타...
 
 ## 2. 예제 만들기
 비즈니스 요구사항 파악 -> 설계 -> 개발   
+member, order domain develop   
