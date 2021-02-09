@@ -89,3 +89,33 @@ JPA의 구현체들: 하이버네이트, EclipseLink, 기타...
 ## 2. 예제 만들기
 비즈니스 요구사항 파악 -> 설계 -> 개발   
 member, order domain develop   
+
+## 3. 객체 지향 원리 적용
+### 새로운 할인 정책 적용과 문제점
+```java
+// OrderServiceImpl.java
+
+private final MemberRepository memberRepository = new MemoryMemberRepository();
+//private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
+private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
+```
+할인 정책을 변경하는데 클라이언트 코드(Impl)에도 영향을 준다. => DIP/OCP 위반   
+? 그럼 어떻게..   
+### 관심사의 분리
+**AppConfig**   
+```java
+public class AppConfig {
+
+    public MemberService memberService() {
+        return new MemberServiceImpl(new MemoryMemberRepository());
+    }
+
+    public OrderService orderService() {
+        return new OrderServiceImpl(new MemoryMemberRepository(), new FixDiscountPolicy());
+    }
+
+}
+```
+- 실제 동작에 필요한 구현 객체를 생성한다.
+- 생성자를 통해서 주입
+   
