@@ -145,4 +145,9 @@ public class AppConfig {
 - `ApplicationContext` 는 인터페이스다.
 - 빈 이름은 항상 다른 이름을 부여해야 한다.
 같은 이름을 부여하면 경우에 따라 다른 빈이 무시되거나 덮어지거나 오류가 발생할 수 있다.
-- 
+
+### Bean 조회
+- 기본 조회 : `ac.getBean()`
+- 동일한 타입이 둘 이상 : `ac.getBeansOfType`
+- 상속관계
+부모 타입으로 조회하면, 자식 타입도 함께 조회된다.
