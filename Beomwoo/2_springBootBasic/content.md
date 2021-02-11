@@ -143,3 +143,6 @@ public class AppConfig {
 ### 스프링 컨테이너 생성
 - `ApplicationContext` 를 스프링 컨테이너라고 한다.
 - `ApplicationContext` 는 인터페이스다.
+- 빈 이름은 항상 다른 이름을 부여해야 한다.
+같은 이름을 부여하면 경우에 따라 다른 빈이 무시되거나 덮어지거나 오류가 발생할 수 있다.
+- 
