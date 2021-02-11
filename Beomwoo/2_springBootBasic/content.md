@@ -138,3 +138,8 @@ public class AppConfig {
 ### 스프링으로 전환하기!
 - `ApplicationContext`를 스프링 컨테이너라고 한다.
 - 기존에는 개발자가 `AppConfig`를 통해 직접 객체를 생성하고 DI를 했지만, 이제는 스프링 컨테이너를 통해 사용한다.
+
+## 4. 스프링 컨테이너와 스프링 빈
+### 스프링 컨테이너 생성
+- `ApplicationContext` 를 스프링 컨테이너라고 한다.
+- `ApplicationContext` 는 인터페이스다.
