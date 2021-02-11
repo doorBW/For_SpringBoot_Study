@@ -151,3 +151,24 @@ public class AppConfig {
 - 동일한 타입이 둘 이상 : `ac.getBeansOfType`
 - 상속관계
 부모 타입으로 조회하면, 자식 타입도 함께 조회된다.
+
+### BeanFactory, ApplicationContext
+BeanFactory <- ApplicationContext <- AnnotationConfig, ApplicationContext, ...   
+- `BeanFactory`   
+스프링 컨테이너의 최상위 인터페이스다.   
+스프링 빈을 관리하고 조회하는 역할을 담당한다.   
+- `ApplicationContext`   
+BeanFactory 을 모두 상속받아서 제공한다.   
+\+ 메시지 소스를 활용한 국제화 기능   
+\+ 환경변수 : 로컬,개발,운영등을 구분해서 처리   
+\+ 애플리케이션 이벤트 : 이벤트를 발행하고 구독하는 모델을 편리하게 지원   
+\+ 편리한 리소스 조회 : 파일,클래스패스,외부 등에서 리소스를 편리하게 조회   
+   
+-> BeanFactory를 직접 사용할 일은 거의 없다. 부가기능이 포함된 ApplicationContext를 사용한다.   
+
+### 스프링 빈 설정 메타정보 - BeanDefinition
+- `BeanDefinition`을 빈 설정 메타정보라고 한다.   
+스프링 컨테이너는 정보가 자바코드인지, XML인지 몰라도 된다. 오직 BeanDefinition만 알면된다.   
+즉 이것 또한 **역할과 구현을 개념적으로 나눈 것**이다.   
+- 스프링 컨테이너는 이 메타정보를 기반으로 스프링 빈을 생성한다.   
+- 새로운 형식의 설정 정보가 추가되면 `xxxBeanDefinitionReader`(AnnotatedBeanDefinitionReader, XmlBeanDefinitionReader, ...)를 만들어서 `BeanDefinition`을 생성한다.   
