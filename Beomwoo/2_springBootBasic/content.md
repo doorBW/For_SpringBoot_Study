@@ -207,3 +207,21 @@ BeanFactory 을 모두 상속받아서 제공한다.
 - 실제로 AppConfig 인스턴스가 빈에 등록되는게 아니라, 스프링이 해석한 , AppConfig를 오버라이드한 AppConfig@CGLIB가 등록된다.
 - 그리고, @Bean이 붙은 메서드마다 이미 스프링 빈이 존재하면 존재하는 빈을 반환, 스프링 빈이 없으면 생성해서 스프링 빈으로 등록하고 반환하는 코드가 동적으로 만들어진다.
 - 덕분에 싱글톤이 보장된다!
+
+## 6. 컴포넌트 스캔
+- 컴포넌트 스캔 위치: `basePackages, basePackageClasses`   
+`@ComponentScan`이 붙은 설정 정보 클래스의 패키지 시작 위치.
+- 컴포넌트 스캔 기본 대상   
+실제 내부를 살펴보면 `@Component`가 들어가있다.
+    - `@Component`
+    - `@Controller`
+    - `@Service`
+    - `@Repository`
+    - `@Configuration`   
+- ComponentScan의 FilterType options
+    - ANNOTATION: 기본 값, 어노테이션을 인식해서 동작
+    - ASSIGNABLE_TYPE: 지정한 타입과 자식 타입을 인식해서 동작
+    - ASPECTJ: AspectJ 패턴 사용
+    - REGEX: 정규표현식
+    - CUSTOM: `TypeFilter` 라는 인터페이스를 구현해서 처리
+    
