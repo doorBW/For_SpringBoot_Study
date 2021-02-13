@@ -197,3 +197,13 @@ BeanFactory 을 모두 상속받아서 제공한다.
     - 가급적 읽기만 가능해야 한다.
     - 필드 대신에 자바에서 공유되지 않는 지역변수, 파라미터, ThreadLocal 등을 사용해야 한다.
 
+### @Configuration
+```java
+@Bean memberService -> new MemoryMemberRepository();
+@Bean orderService ->  new MemoryMemberRepository();
+```
+- 각각 다른 MemberRepository가 생기는게 아닐까?
+- Test해보니 아닌데..?
+- 실제로 AppConfig 인스턴스가 빈에 등록되는게 아니라, 스프링이 해석한 , AppConfig를 오버라이드한 AppConfig@CGLIB가 등록된다.
+- 그리고, @Bean이 붙은 메서드마다 이미 스프링 빈이 존재하면 존재하는 빈을 반환, 스프링 빈이 없으면 생성해서 스프링 빈으로 등록하고 반환하는 코드가 동적으로 만들어진다.
+- 덕분에 싱글톤이 보장된다!
