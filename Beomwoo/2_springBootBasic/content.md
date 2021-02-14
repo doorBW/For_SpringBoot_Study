@@ -265,4 +265,25 @@ BeanFactory 을 모두 상속받아서 제공한다.
 - 일반 메서드 주입
     - 한번에 여러 필드를 주입할 수 있다.
     - 하지만 일반적으로 잘 사용하지 않는다.
-    
+
+### 옵션 처리
+- `@Autowired` 만 사용하면 required 옵션의 기본값이 true로 되어 있어서, 자동 주입 대상이 없으면 오류가 발생한다.
+```java
+// 메서드 호출 자체가 안된다.
+@Autowired(required = false)
+public void setNoBean1(Member noBean1){
+    System.out.println("noBean1 = " + noBean1);
+}
+
+// 자동 주입할 대상이 없으면 null이 입력된다.
+@Autowired
+public void setNoBean2(@Nullable Member noBean2){
+    System.out.println("noBean2 = " + noBean2);
+}
+
+// 자동 주입할 대상이 없으면 `Optional.empty` 가 입력된다.
+@Autowired
+public void setNoBean3(Optional<Member> noBean3){
+    System.out.println("noBean3 = " + noBean3);
+}
+```
