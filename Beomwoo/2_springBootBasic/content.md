@@ -233,3 +233,36 @@ BeanFactory 을 모두 상속받아서 제공한다.
 -> 자동빈을 수동빈이 오버라이딩 해버린다.   
 물론 개발자가 의도적으로 한 것이라면 괜찮(?)겠지만, 의도가 아니라면 **정말 잡기 어려운 버그가 만들어진다.**   
 -> 그래서 최근 스프링 부트에서는 디폴트로, 수동빈등록과 자동빈등록이 중복되면 에러가 나도록 바뀌었다.
+
+## 7. 의존관계 자동 주입
+### 다양한 의존관계 주입 방법
+- 생성자 주입
+```java
+    ...
+
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
+
+    @Autowired
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
+
+    ...
+```   
+- 
+    - 생성자 호출시점에 딱 1번만 호출되는 것이 보장된다.
+    - **불편, 필수** 의존관계에 사용
+    - **중요! 생성자가 1개만 있으면** `@Autowired`를 생략가능
+- 수정자 주입(setter 주입)
+    - setter 메서드에 `@Autowired` 붙여서 적용
+    - **선택, 변경** 가능성이 있는 의존관계에 사용
+- 필드 주입
+    - 코드가 간결하지만, 외부에서 변경이 불가능하여 테스트하기 힘들다는 치명적인 단점이 있다.
+    - DI 프레임워크가 없으면 아무것도 할 수 없다.
+    - 스프링 설정을 목적으로 하는 어플리케이션 코드가 아니라 테스트코드 / `@Configuration` 같은 곳에서만 특수하게 사용.
+- 일반 메서드 주입
+    - 한번에 여러 필드를 주입할 수 있다.
+    - 하지만 일반적으로 잘 사용하지 않는다.
+    
