@@ -233,3 +233,83 @@ BeanFactory 을 모두 상속받아서 제공한다.
 -> 자동빈을 수동빈이 오버라이딩 해버린다.   
 물론 개발자가 의도적으로 한 것이라면 괜찮(?)겠지만, 의도가 아니라면 **정말 잡기 어려운 버그가 만들어진다.**   
 -> 그래서 최근 스프링 부트에서는 디폴트로, 수동빈등록과 자동빈등록이 중복되면 에러가 나도록 바뀌었다.
+
+## 7. 의존관계 자동 주입
+### 다양한 의존관계 주입 방법
+- 생성자 주입
+```java
+    ...
+
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
+
+    @Autowired
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
+
+    ...
+```   
+- 
+    - 생성자 호출시점에 딱 1번만 호출되는 것이 보장된다.
+    - **불편, 필수** 의존관계에 사용
+    - **중요! 생성자가 1개만 있으면** `@Autowired`를 생략가능
+- 수정자 주입(setter 주입)
+    - setter 메서드에 `@Autowired` 붙여서 적용
+    - **선택, 변경** 가능성이 있는 의존관계에 사용
+- 필드 주입
+    - 코드가 간결하지만, 외부에서 변경이 불가능하여 테스트하기 힘들다는 치명적인 단점이 있다.
+    - DI 프레임워크가 없으면 아무것도 할 수 없다.
+    - 스프링 설정을 목적으로 하는 어플리케이션 코드가 아니라 테스트코드 / `@Configuration` 같은 곳에서만 특수하게 사용.
+- 일반 메서드 주입
+    - 한번에 여러 필드를 주입할 수 있다.
+    - 하지만 일반적으로 잘 사용하지 않는다.
+
+### 옵션 처리
+- `@Autowired` 만 사용하면 required 옵션의 기본값이 true로 되어 있어서, 자동 주입 대상이 없으면 오류가 발생한다.
+```java
+// 메서드 호출 자체가 안된다.
+@Autowired(required = false)
+public void setNoBean1(Member noBean1){
+    System.out.println("noBean1 = " + noBean1);
+}
+
+// 자동 주입할 대상이 없으면 null이 입력된다.
+@Autowired
+public void setNoBean2(@Nullable Member noBean2){
+    System.out.println("noBean2 = " + noBean2);
+}
+
+// 자동 주입할 대상이 없으면 `Optional.empty` 가 입력된다.
+@Autowired
+public void setNoBean3(Optional<Member> noBean3){
+    System.out.println("noBean3 = " + noBean3);
+}
+```
+
+### 생성자 주입을 선택해라.
+- 최근에는 스프링을 포함한 DI프레임워크 대부분이 생성자 주입을 권장한다. 왜?
+1. **불변**   
+    - 대부분의 의존관계 주입은 한번 일어나면 애플리케이션 종료시점까지 의존관계를 변경할 일이 없다.
+    - 수정자 주입을 사용하면 setter메서드를 Public 으로 열어두어야 한다.
+    - 변경하면 안되는 메서드를 열어두는 것은 좋지 않다.
+    - 생성자 주입은 객체를 생성할 때 딱 1번만 호출되므로 이후에 호출되는 일이 없다.
+    - 따라서 불변하게 설계할 수 있다.
+2. **누락**
+- 생성자 주입을 사용하면 `final`키워드를 사용할 수 있다. 그래서 생성자에서 혹시라도 초기화 되지 않는 오류를 컴파일 시점에 막아준다.
+- 수정자 주입을 퐇마한 나머지 주입 방식은 모두 생성자 이후에 호출되므로 필드에 `final` 키워드를 사용할 수 없다.
+
+### 롬복과 최신 트렌드
+
+### 조회 빈이 2개 이상 - 문제
+- 해결방안
+    - `@Autowired` 필드 명 매칭
+    - `@Quilifier`
+        - 추가 구분자를 붙여주는 방법.
+    - `@Primary`
+        - 우선권을 지정하는 방법
+
+### 자동, 수동의 올바른 실무 운영기준
+- 업무로직빈 / 기술지원빈 두개로 나누어서 생각하자.
+- 어플리케이션에 광범위하게 영향을 미치는 **기술 지원 객체**는 수동 빈으로 등록해서, 설정정보에 바로 나타나게 하는 것이 유지보수 하기에 좋다.
