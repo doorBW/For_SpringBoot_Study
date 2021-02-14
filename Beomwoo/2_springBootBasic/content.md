@@ -302,3 +302,11 @@ public void setNoBean3(Optional<Member> noBean3){
 
 ### 롬복과 최신 트렌드
 
+### 조회 빈이 2개 이상 - 문제
+- 해결방안
+    - `@Autowired` 필드 명 매칭
+    - `@Quilifier`
+        - 추가 구분자를 붙여주는 방법.
+    - `@Primary`
+        - 우선권을 지정하는 방법
+        
