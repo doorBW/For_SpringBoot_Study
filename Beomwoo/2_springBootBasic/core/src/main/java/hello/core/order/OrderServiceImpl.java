@@ -6,8 +6,10 @@ import org.springframework.stereotype.Component;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
+import lombok.RequiredArgsConstructor;
 
 @Component
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
     private final MemberRepository memberRepository;
@@ -15,10 +17,10 @@ public class OrderServiceImpl implements OrderService {
 
     // 생성자가 1개 있을때는 생략 가능하다.
     // @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-        this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy;
-    }
+//    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+//        this.memberRepository = memberRepository;
+//        this.discountPolicy = discountPolicy;
+//    } // by lombok
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
