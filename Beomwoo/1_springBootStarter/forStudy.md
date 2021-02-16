@@ -23,6 +23,26 @@ json형태로 객체 데이터를 반환
 - @Named
 ???
 
+## Bean Scope
+- 빈 스코프 : 빈 생존기간
+- 기본적으로 DI컨테이너에 빈이 싱글톤으로 주입되는 것은, 빈 스코프의 디폴트 값이 singleton이라서 이다.
+- Bean scope 종류
+    - singleton
+    - prototype
+    - request
+    - session
+    - global session
+    - application
+    - custom
+- How to chansge bean scope
+```java
+@Bean
+@Scope("prototype")
+public UserService userService(){
+    return new UserServiceImpl();
+}
+```
+
 ---
 ## Refer
 - https://codevang.tistory.com/259
