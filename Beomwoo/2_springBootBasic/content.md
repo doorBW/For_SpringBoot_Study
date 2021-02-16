@@ -138,3 +138,178 @@ public class AppConfig {
 ### 스프링으로 전환하기!
 - `ApplicationContext`를 스프링 컨테이너라고 한다.
 - 기존에는 개발자가 `AppConfig`를 통해 직접 객체를 생성하고 DI를 했지만, 이제는 스프링 컨테이너를 통해 사용한다.
+
+## 4. 스프링 컨테이너와 스프링 빈
+### 스프링 컨테이너 생성
+- `ApplicationContext` 를 스프링 컨테이너라고 한다.
+- `ApplicationContext` 는 인터페이스다.
+- 빈 이름은 항상 다른 이름을 부여해야 한다.
+같은 이름을 부여하면 경우에 따라 다른 빈이 무시되거나 덮어지거나 오류가 발생할 수 있다.
+
+### Bean 조회
+- 기본 조회 : `ac.getBean()`
+- 동일한 타입이 둘 이상 : `ac.getBeansOfType`
+- 상속관계
+부모 타입으로 조회하면, 자식 타입도 함께 조회된다.
+
+### BeanFactory, ApplicationContext
+BeanFactory <- ApplicationContext <- AnnotationConfig, ApplicationContext, ...   
+- `BeanFactory`   
+스프링 컨테이너의 최상위 인터페이스다.   
+스프링 빈을 관리하고 조회하는 역할을 담당한다.   
+- `ApplicationContext`   
+BeanFactory 을 모두 상속받아서 제공한다.   
+\+ 메시지 소스를 활용한 국제화 기능   
+\+ 환경변수 : 로컬,개발,운영등을 구분해서 처리   
+\+ 애플리케이션 이벤트 : 이벤트를 발행하고 구독하는 모델을 편리하게 지원   
+\+ 편리한 리소스 조회 : 파일,클래스패스,외부 등에서 리소스를 편리하게 조회   
+   
+-> BeanFactory를 직접 사용할 일은 거의 없다. 부가기능이 포함된 ApplicationContext를 사용한다.   
+
+### 스프링 빈 설정 메타정보 - BeanDefinition
+- `BeanDefinition`을 빈 설정 메타정보라고 한다.   
+스프링 컨테이너는 정보가 자바코드인지, XML인지 몰라도 된다. 오직 BeanDefinition만 알면된다.   
+즉 이것 또한 **역할과 구현을 개념적으로 나눈 것**이다.   
+- 스프링 컨테이너는 이 메타정보를 기반으로 스프링 빈을 생성한다.   
+- 새로운 형식의 설정 정보가 추가되면 `xxxBeanDefinitionReader`(AnnotatedBeanDefinitionReader, XmlBeanDefinitionReader, ...)를 만들어서 `BeanDefinition`을 생성한다.   
+
+## 5. 싱글 톤 컨테이너
+### 싱글톤 패턴
+- 클래스의 인스턴스가 딱 1개만 생성되는 것을 보장하는 디자인 패턴   
+### 싱글톤 패턴의 문제점
+- 싱글톤 패턴을 구현하는 코드가 많아진다.
+- 의존관계상 클라이엍느가 구체 클래스에 의존하게 된다. -> DIP를 위반한다.
+- 내부 속성을 변경하거나 초기화 하기 어렵다.
+- private 생성자로 자식 클래스를 만들기 어렵다.
+- 유연성이 떨어진다.
+- 안티패턴으로 불리기도 한다.
+### 싱글톤 컨테이너
+- 스프링 컨테이너는 싱글턴 패턴을 직접 적용하지 않아도, 객체 인스턴스를 싱글톤으로 관리한다.
+- 스프링 컨테이너는 싱글톤 컨테이너 역할을 한다.
+- 스프링의 기본 빈 등록 방식은 싱글톤이지만, 싱글톤 방식만 지원하는 건 아님.   
+요청할때마다 새로운 객체를 생성해서 반환하는 기능도 제공한다.
+### 싱글톤 방식의 주의점
+- 싱글톤 객체는 상태를 유지(stateful)하게 설계하면 안된다.   
+객체 인스턴스를 하나만 생성해서 여러 클라이언트가 공유하기 때문에,
+- 무상태(stateless)로 설계해야 한다
+    - 특정 클라이언트에 의존적인 필드가 있으면 안된다.
+    - 특정 클라이언트가 값을 변경할 수 있는 필드가 있으면 안된다.
+    - 가급적 읽기만 가능해야 한다.
+    - 필드 대신에 자바에서 공유되지 않는 지역변수, 파라미터, ThreadLocal 등을 사용해야 한다.
+
+### @Configuration
+```java
+@Bean memberService -> new MemoryMemberRepository();
+@Bean orderService ->  new MemoryMemberRepository();
+```
+- 각각 다른 MemberRepository가 생기는게 아닐까?
+- Test해보니 아닌데..?
+- 실제로 AppConfig 인스턴스가 빈에 등록되는게 아니라, 스프링이 해석한 , AppConfig를 오버라이드한 AppConfig@CGLIB가 등록된다.
+- 그리고, @Bean이 붙은 메서드마다 이미 스프링 빈이 존재하면 존재하는 빈을 반환, 스프링 빈이 없으면 생성해서 스프링 빈으로 등록하고 반환하는 코드가 동적으로 만들어진다.
+- 덕분에 싱글톤이 보장된다!
+
+## 6. 컴포넌트 스캔
+- 컴포넌트 스캔 위치: `basePackages, basePackageClasses`   
+`@ComponentScan`이 붙은 설정 정보 클래스의 패키지 시작 위치.
+- 컴포넌트 스캔 기본 대상   
+실제 내부를 살펴보면 `@Component`가 들어가있다.
+    - `@Component`
+    - `@Controller`
+    - `@Service`
+    - `@Repository`
+    - `@Configuration`   
+- ComponentScan의 FilterType options
+    - ANNOTATION: 기본 값, 어노테이션을 인식해서 동작
+    - ASSIGNABLE_TYPE: 지정한 타입과 자식 타입을 인식해서 동작
+    - ASPECTJ: AspectJ 패턴 사용
+    - REGEX: 정규표현식
+    - CUSTOM: `TypeFilter` 라는 인터페이스를 구현해서 처리
+
+### 중복 등록과 충돌
+- 자동 빈 등록 vs 자동 빈 등록   
+`ConflictingBeanDefinitionException` 예외 발생
+- 수동 빈 등록 vs 자동 빈 등록   
+이 경우 수동 빈 등록이 우선권을 가진다.   
+-> 자동빈을 수동빈이 오버라이딩 해버린다.   
+물론 개발자가 의도적으로 한 것이라면 괜찮(?)겠지만, 의도가 아니라면 **정말 잡기 어려운 버그가 만들어진다.**   
+-> 그래서 최근 스프링 부트에서는 디폴트로, 수동빈등록과 자동빈등록이 중복되면 에러가 나도록 바뀌었다.
+
+## 7. 의존관계 자동 주입
+### 다양한 의존관계 주입 방법
+- 생성자 주입
+```java
+    ...
+
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
+
+    @Autowired
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
+
+    ...
+```   
+- 
+    - 생성자 호출시점에 딱 1번만 호출되는 것이 보장된다.
+    - **불편, 필수** 의존관계에 사용
+    - **중요! 생성자가 1개만 있으면** `@Autowired`를 생략가능
+- 수정자 주입(setter 주입)
+    - setter 메서드에 `@Autowired` 붙여서 적용
+    - **선택, 변경** 가능성이 있는 의존관계에 사용
+- 필드 주입
+    - 코드가 간결하지만, 외부에서 변경이 불가능하여 테스트하기 힘들다는 치명적인 단점이 있다.
+    - DI 프레임워크가 없으면 아무것도 할 수 없다.
+    - 스프링 설정을 목적으로 하는 어플리케이션 코드가 아니라 테스트코드 / `@Configuration` 같은 곳에서만 특수하게 사용.
+- 일반 메서드 주입
+    - 한번에 여러 필드를 주입할 수 있다.
+    - 하지만 일반적으로 잘 사용하지 않는다.
+
+### 옵션 처리
+- `@Autowired` 만 사용하면 required 옵션의 기본값이 true로 되어 있어서, 자동 주입 대상이 없으면 오류가 발생한다.
+```java
+// 메서드 호출 자체가 안된다.
+@Autowired(required = false)
+public void setNoBean1(Member noBean1){
+    System.out.println("noBean1 = " + noBean1);
+}
+
+// 자동 주입할 대상이 없으면 null이 입력된다.
+@Autowired
+public void setNoBean2(@Nullable Member noBean2){
+    System.out.println("noBean2 = " + noBean2);
+}
+
+// 자동 주입할 대상이 없으면 `Optional.empty` 가 입력된다.
+@Autowired
+public void setNoBean3(Optional<Member> noBean3){
+    System.out.println("noBean3 = " + noBean3);
+}
+```
+
+### 생성자 주입을 선택해라.
+- 최근에는 스프링을 포함한 DI프레임워크 대부분이 생성자 주입을 권장한다. 왜?
+1. **불변**   
+    - 대부분의 의존관계 주입은 한번 일어나면 애플리케이션 종료시점까지 의존관계를 변경할 일이 없다.
+    - 수정자 주입을 사용하면 setter메서드를 Public 으로 열어두어야 한다.
+    - 변경하면 안되는 메서드를 열어두는 것은 좋지 않다.
+    - 생성자 주입은 객체를 생성할 때 딱 1번만 호출되므로 이후에 호출되는 일이 없다.
+    - 따라서 불변하게 설계할 수 있다.
+2. **누락**
+- 생성자 주입을 사용하면 `final`키워드를 사용할 수 있다. 그래서 생성자에서 혹시라도 초기화 되지 않는 오류를 컴파일 시점에 막아준다.
+- 수정자 주입을 퐇마한 나머지 주입 방식은 모두 생성자 이후에 호출되므로 필드에 `final` 키워드를 사용할 수 없다.
+
+### 롬복과 최신 트렌드
+
+### 조회 빈이 2개 이상 - 문제
+- 해결방안
+    - `@Autowired` 필드 명 매칭
+    - `@Quilifier`
+        - 추가 구분자를 붙여주는 방법.
+    - `@Primary`
+        - 우선권을 지정하는 방법
+
+### 자동, 수동의 올바른 실무 운영기준
+- 업무로직빈 / 기술지원빈 두개로 나누어서 생각하자.
+- 어플리케이션에 광범위하게 영향을 미치는 **기술 지원 객체**는 수동 빈으로 등록해서, 설정정보에 바로 나타나게 하는 것이 유지보수 하기에 좋다.
