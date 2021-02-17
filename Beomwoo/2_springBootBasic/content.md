@@ -327,3 +327,11 @@ public void setNoBean3(Optional<Member> noBean3){
 - 인터페이스(InitializingBean, DisposableBean)
 - 설정 정보에 초기화 메서드, 종료 메서드 지정
 - @PostConstruct, @PreDestory 애노테이션 지원
+
+### 초기화, 소멸 인터페이스 단점
+- 이 인터페이스는 스프링 전용 인터페이스다. 해당 코드가 스프링 전용 인터페이스에 의존한다.
+- 초기화, 소멸 메서드의 이름을 변경할 수 없다.
+- 내가 코드를 고칠 수 없는 외부 라이브러리에 적용할 수 없다.
+- 인터페이스를 사용하는건 초창기이고 지금은 더 나은 방법들이 있다.
+
+
