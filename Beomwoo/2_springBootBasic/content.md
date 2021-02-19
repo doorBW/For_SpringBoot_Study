@@ -368,3 +368,6 @@ public void setNoBean3(Optional<Member> noBean3){
 - 이에 따라서 `@PreDestory` 같은 종료 메서드가 호출되지 않는다.
 
 ### 프로토타입 스코프 빈과, 싱글톤 빈과 함께 사용시 문제점
+
+### 문제 해결 - Provider
+- ObjectProvider / ObjectFactory
