@@ -370,4 +370,15 @@ public void setNoBean3(Optional<Member> noBean3){
 ### 프로토타입 스코프 빈과, 싱글톤 빈과 함께 사용시 문제점
 
 ### 문제 해결 - Provider
-- ObjectProvider / ObjectFactory
+- 스프링 -> ObjectProvider / ObjectFactory
+- 자바표준 -> Provider
+
+### 웹 스코프
+- 웹 환경에서만 동작한다.
+- 프로토타입과 다르게 스프링이 해당 스코프의 종료시점까지 관리한다.
+- 따라서 종료메서드가 호출된다.
+- request: HTTP 요청 하나가 들어오고 나갈 때 까지 유지되는 스코프, 각각의 HTTP 요청마다 별도의 빈 인스턴스가 생성되고 관리된다.
+- session
+- application
+- websocket
+
