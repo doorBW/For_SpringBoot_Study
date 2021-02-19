@@ -382,3 +382,12 @@ public void setNoBean3(Optional<Member> noBean3){
 - application
 - websocket
 
+### 스코프와 프록시
+```java
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
+````
+- 이렇게하면 MyLogger의 가짜 프록시 클래스를 만들어두고 HTTP request와 상관없이 가짜 프록시 클래스를 다른 빈에 미리 주입해 둘 수 있다.
+- **CGLIB 라는 라이브러리로 내 클래스를 상속 받은 가짜 프록시 객체를 만들어서 주입한다.**
+- 스프링 컨테이너에 "myLogger"라는 이름으로 진짜 대신에 이 가짜 프록시 객체를 등록한다.
+- `ac.getBean("myLogger", MyLogger.class)`로 조회해도 프록시 객체가 조회된다.
+- **가짜 프록시 객체는 요청이 오면 그때 내부에서 진짜 빈을 요청하는 위임 로직이 들어있다.**
