@@ -12,3 +12,7 @@
 - ORM 프레임워크가 중간에서 매핑
 - JPA는 인터페이스의 모음(하이버네이트, EclipseLink, DataNucleus)
 - SQL 중심적인 개발에서 객체 중심으로 개발이 가능해진다.
+
+## JPA 시작하기
+### H2 DB Setting
+### Java project (with Maven)
