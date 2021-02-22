@@ -55,3 +55,8 @@ how?
     - TELNET: 23
     - HTTP: 80
     - HTTPS: 443
+### DNS
+- IP는 기억하기 어렵다.
+- DNS(Nomain Name System)를 이용한다.
+- DNS서버에서 도메인명<->IP연결
+- 클라이언트는 도메인명으로 요청을 한다.
