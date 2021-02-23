@@ -75,3 +75,10 @@
     - final 클래스, Enum, interface, inner 클래스에 사용x
     - 저장할 필드에 final 사용x
 - @Table은 엔티티와 매핑할 테이블 지정
+
+### Database 스키마 자동 생성
+- DDL을 애플리케이션 실행 시점에 자동 생성
+- 테이블 중심 -> 객체 중심
+- **이렇게 생성된 DDL은 개발 장비에서만 사용**
+- DDL생성기능: @Column의 Nullable, length 등
+    - DDL 자동 생성시에만 영향을 주고 JPA에는 영향을 주지 않는다.
