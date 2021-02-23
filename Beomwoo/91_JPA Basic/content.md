@@ -82,3 +82,6 @@
 - **이렇게 생성된 DDL은 개발 장비에서만 사용**
 - DDL생성기능: @Column의 Nullable, length 등
     - DDL 자동 생성시에만 영향을 주고 JPA에는 영향을 주지 않는다.
+
+### 필드와 컬럼 매핑
+- @Transient: db랑 매핑하지 않을 것 명시

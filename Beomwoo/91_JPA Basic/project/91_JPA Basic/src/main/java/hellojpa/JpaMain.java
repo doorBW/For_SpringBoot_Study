@@ -1,7 +1,5 @@
 package hellojpa;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -16,12 +14,12 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            Member member = em.find(Member.class, 150L);
-            member.setName("AAAAA");
+            Member member = new Member();
+            member.setId(1L);
+            member.setUsername("A");
+            member.setRoleType(RoleType.ADMIN);
 
-            em.clear();
-
-            Member member2 = em.find(Member.class, 150L);
+            em.persist(member);
 
             System.out.println("===========");
             tx.commit(); //쿼리가 날라가는 시점
