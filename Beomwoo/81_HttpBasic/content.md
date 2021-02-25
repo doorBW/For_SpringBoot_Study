@@ -60,3 +60,12 @@ how?
 - DNS(Nomain Name System)를 이용한다.
 - DNS서버에서 도메인명<->IP연결
 - 클라이언트는 도메인명으로 요청을 한다.
+
+## URI와 웹 브라우저 요청 흐름
+### URI
+- URI = URL + URN + ...
+- URL: Resource Locator
+- URN: Resource Name
+- URI: Resource Identifier
+
+### 웹 브라우저 요청 흐름
