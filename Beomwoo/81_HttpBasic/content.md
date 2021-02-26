@@ -69,3 +69,15 @@ how?
 - URI: Resource Identifier
 
 ### 웹 브라우저 요청 흐름
+
+## HTTP 기본
+- HyperText Transfer Protocol
+- HTML, TEXT, Image, 음성, 영상, 파일, JSON, XML, ...
+- TCP: HTTP/1.1, HTTP/2
+- UDP: HTTP/3
+- 현재는 HTTP/1.1 주로 사용(HTTP/2, HTTP/3도 점점 증가)
+### HTTP 특징
+1. 클라이언트 서버 구조
+2. 무상태 프로토콜(스테이스리스), 비연결성
+3. HTTP 메시지
+4. 단순함, 확장 가능
