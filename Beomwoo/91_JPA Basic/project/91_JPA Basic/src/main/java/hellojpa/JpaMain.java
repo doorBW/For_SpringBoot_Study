@@ -1,5 +1,7 @@
 package hellojpa;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -16,7 +18,7 @@ public class JpaMain {
         try {
             //저장
             Team team = new Team();
-            team.setName("TeamA");
+            team.setName("TeamAA");
             em.persist(team);
 
             Member member = new Member();
@@ -25,13 +27,21 @@ public class JpaMain {
             member.setTeam(team);
             em.persist(member);
 
+            em.flush();
+            em.clear();
+
             //조회
             Member findMember = em.find(Member.class, member.getId());
             //Long findTeamId = findMember.getTeamId();
             //객체지향적이지 못하다.
             //Team findTeam = em.find(Team.class, findTeamId);
-            Team findTeam = findMember.getTeam();
-            System.out.println("findTeam = " + findTeam.getName());
+//            Team findTeam = findMember.getTeam();
+//            System.out.println("findTeam = " + findTeam.getName());
+
+            List<Member> members = findMember.getTeam().getMembers();
+            for (Member m : members) {
+                System.out.println("m.getUsername() = " + m.getUsername());
+            }
 
             tx.commit(); //쿼리가 날라가는 시점
         } catch (Exception e) {
