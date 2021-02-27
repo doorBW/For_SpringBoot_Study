@@ -23,25 +23,19 @@ public class JpaMain {
 
             Member member = new Member();
             member.setUsername("member1");
-            //member.setTeamId(team.getId());
-            member.setTeam(team);
+//            member.changeTeam(team);
             em.persist(member);
 
-            em.flush();
-            em.clear();
+            team.addMember(member);
 
-            //조회
-            Member findMember = em.find(Member.class, member.getId());
-            //Long findTeamId = findMember.getTeamId();
-            //객체지향적이지 못하다.
-            //Team findTeam = em.find(Team.class, findTeamId);
-//            Team findTeam = findMember.getTeam();
-//            System.out.println("findTeam = " + findTeam.getName());
+            Team findTeam = em.find(Team.class, team.getId());
+            List<Member> members = findTeam.getMembers();
 
-            List<Member> members = findMember.getTeam().getMembers();
+            System.out.println("============");
             for (Member m : members) {
-                System.out.println("m.getUsername() = " + m.getUsername());
+                System.out.println("m = " + m.getUsername());
             }
+            System.out.println("============");
 
             tx.commit(); //쿼리가 날라가는 시점
         } catch (Exception e) {
