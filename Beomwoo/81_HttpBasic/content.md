@@ -128,3 +128,10 @@ how?
         - 리소스 부분 변경
     - DELETE: 리소스 삭제
         - 리소스 제거
+- HTTP 메서드의 속성
+    - 안전(Safe Methods)   
+    호출해도 리소스를 변경하지 않는다.
+    - 멱등(Idempotent Methods)   
+    한번 호출하든 두번 호출하든 100번 호출하든 결과가 똑같다.
+    - 캐시가능(Cacheable Methods)
+    
