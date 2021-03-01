@@ -149,3 +149,8 @@ how?
     4. HTML API를 통한 데이터 전송
     
 ### HTTP API 설계 예시
+- 회원 목록 /members -> GET
+- 회원 등록 /members -> POST
+- 회원 조회 /members/{id} -> GET
+- 회원 수정 /members/{id} -> PATCH, PUT, POST
+- 회원 삭제 /members/{id} -> DELETE
