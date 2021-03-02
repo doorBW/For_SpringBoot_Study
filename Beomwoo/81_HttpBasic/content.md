@@ -166,6 +166,23 @@ how?
 - 204 No Content: 서버가 요청을 성공적으로 수행했지만, 응답 페이로드 본문에 보낼 데이터가 없음.(ex. 웹 문서 편집기에서 save버튼)
 
 ### 3xx (Redirection): 요청을 완료하려면 추가 행동이 필요
+- 리다이렉션의 이해
+    - 웹 브라우저는 3xx 응답의 결과에 location이 있으면 location으로 이동한다.
+    - 영구 리다이렉션 - 특정 리소스의 URI가 영구적으로 이동
+    - 일시 리다이렉션 - 일시적인 변경
+    - 특수 리다이렉션- 결과 대신 캐시를 사용
+- 영구 리다이렉션
+    - 301 Moved Permanently
+        - 리다이렉트시 요청 메서드가 GET으로 변하고, 본문이 제거될 수 있음.
+    - 308 Permanent Redirect
+        - 리다이렉트시 요청 메서드와 본문 유지
+
+- 300 Multiple Choices
+- 302 Found
+- 303 See Other
+- 304 Not Modified
+- 307 Temporary Redirect
+
 
 ### 4xx (Client Error): 클라이언트 오류, 잘못된 문법등으로 서버가 요청을 수행할 수 없음
 
