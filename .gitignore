@@ -39,3 +39,6 @@ out/
 
 
 *.pdf
+
+Heejae/**/note.md
+Heejae/**/note_img
