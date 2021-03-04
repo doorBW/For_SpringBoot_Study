@@ -196,8 +196,16 @@ how?
     - 조건부 GET, HEAD 요청시 사용
 
 ### 4xx (Client Error): 클라이언트 오류, 잘못된 문법등으로 서버가 요청을 수행할 수 없음
+- 오류의 원인이 클라이언트에 있음.
+- 401 Unauthorized: 클라이언트가 해당 리소스에 대한 인증이 필요함.
+    - WWW-Authenticate 헤더와 함께 인증 방법을 설명
+- 403 Forbidden: 서버가 요청을 이해했지만 승인을 거부함
+- 404 Not Found: 요청 리소스를 찾을 수 없음
 
 ### 5xx (Server Error): 서버 오류, 서버가 정상 요청을 처리하지 못함.
+- 500 Internal Server Error: 서버 문제로 인한 이용불가
+- 503 Service Unavailable: 서비스 이용불가
+    - Retry-After 헤더필드로 얼마뒤에 복구되는지 보낼수도 있음
 
 ### 만약 모르는 상태 코드가 나타나면?
 - 클라이언트는 상위 상태코드로 해석함. -> 백번대를 보고!
