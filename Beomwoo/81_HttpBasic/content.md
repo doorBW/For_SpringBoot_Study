@@ -229,4 +229,9 @@ how?
 - 메시지 본문 = 페이로드(payload)
 - 표현은 요청이나 응답에서 전달할 실제 데이터
 - 표현 헤더는 표현 데이터를 해석할 수 있는 정보 제공
-
+### 표현
+- Content-Type: 표현 데이터의 형식
+- Content-Encoding: 압축 방식
+- Content-Languate: 자연 언어
+- Content-Length: 길이
+- 표현 헤더는 전송, 응답 둘다 사용
