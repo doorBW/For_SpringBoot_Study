@@ -280,3 +280,7 @@ how?
     - ex. Allow: GET, HEAD, PUT
 - Retry-After
     - 503: 서비스가 언제까지 불능인지 알려줄 수 있음
+### 인증
+- Authorization: 클라이언트 인증 정보를 서버에 전달
+- WWW-Authenticate: 리소스 접근시 필요한 인증 방법 정의
+    - 401 Unauthorized 응답과 함께 사용
