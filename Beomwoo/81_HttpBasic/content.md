@@ -250,3 +250,13 @@ how?
     2. text/plain
     3. text/*
     4. */*
+### 전송방식
+- 단순 전송
+    - 그냥 요청하면 응답을 준다.
+- 압축 전송
+    - Content-Encoding
+- 분할 전송
+    - Transfer-Encoding
+- 범위 전송
+    - Range, Content-Range
+
