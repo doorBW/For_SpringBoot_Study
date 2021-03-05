@@ -270,3 +270,13 @@ how?
     - 응답에서 사용
 - Date: 메시지가 발생한 날짜와 시간
     - 응답에서 사용
+### 특별한 정보
+- Host: 요청한 호스트 정보(도메인)
+    - 요청에서 사용
+    - 필수값임!!
+- Location: 페이지 리다이렉션
+- Allow: 허용가능한 HTTP 메서드
+    - 405(method Not Allowed) 에서 응답에 포함해야함
+    - ex. Allow: GET, HEAD, PUT
+- Retry-After
+    - 503: 서비스가 언제까지 불능인지 알려줄 수 있음
