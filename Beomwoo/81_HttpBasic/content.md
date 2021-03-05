@@ -235,3 +235,18 @@ how?
 - Content-Languate: 자연 언어
 - Content-Length: 길이
 - 표현 헤더는 전송, 응답 둘다 사용
+### 협상(Content-negotiation)
+- Accpet: 클라이언트가 선호하는 미디어 타입 전달
+- Accpet-Charset: 클라이언트가 선호하는 문자 인코딩
+- Accpet-Encoding: 클라이언트가 선호하는 압축 인코딩
+- Accpet-Language: 클라이언트가 선호하는 자연 언어
+### 협상과 우선순위(Quality Values(q))
+- Quality Values(q) 값 사용
+- 0~1, 클수록 높은 우선순위
+- 생략하면 1
+- 구체적인 것이 우선한다.
+    - Accept: text/*, text/plain, text/plain;format-flowed, */*
+    1. text/plain;format=flowed
+    2. text/plain
+    3. text/*
+    4. */*
