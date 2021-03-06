@@ -147,3 +147,4 @@ public void setTeam(Team team) {
 - @ManyToMany with @JoinTable
 - 실무에서는 추가정보가 필요한경우가 대다수인데, 연결테이블에는 매핑정보만 들어간다..
 - **-> 연결테이블을 엔티티로 승격시키자!**
+### 실전예제! 코딩~!
