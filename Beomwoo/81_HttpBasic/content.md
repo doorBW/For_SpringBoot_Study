@@ -347,8 +347,18 @@ how?
 - Expires: 캐시만료일지정(하위호환)
 
 ### 프록시 캐시
+- 프록시캐시서버 -> public 캐시
+- 개인 웹 브라우저 -> private 캐시
 - Cache-Control: 캐시 지시어
     - public: 응답이 public 캐시에 저장되어도 됨
     - private: 응답이 해당 사용자만을 위한 것임
     - s-maxage: 프록시 캐시에만 적용되는 max-age
     - Age: 60 : 오리진 서버에서 응답 후 프록시 캐시내에 머문시간(초)
+
+### 캐시 무효화
+- 확실한 캐시 무효화 응답
+    - Cache-Control: no-cache, no-store, must-revalidate
+    - Pragma: no-cache
+- must-revalidate
+    - 원서버에 접근할 수 없는 경우, **항상 오류**가 발생해야 함
+    
