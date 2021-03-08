@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Team {
+public class Team extends BaseEntity{
 
     @Id @GeneratedValue
     @Column(name = "TEAM_ID")
