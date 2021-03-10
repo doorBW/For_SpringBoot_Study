@@ -1,5 +1,6 @@
 package hellojpa;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -16,26 +17,11 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            //저장
-            Team team = new Team();
-            team.setName("TeamAA");
-            em.persist(team);
-
             Member member = new Member();
-            member.setUsername("member1");
-//            member.changeTeam(team);
+            member.setUsername("user1");
+            member.setCreatedBy("kim");
+            member.setCreatedDate(LocalDateTime.now());
             em.persist(member);
-
-            team.addMember(member);
-
-            Team findTeam = em.find(Team.class, team.getId());
-            List<Member> members = findTeam.getMembers();
-
-            System.out.println("============");
-            for (Member m : members) {
-                System.out.println("m = " + m.getUsername());
-            }
-            System.out.println("============");
 
             tx.commit(); //쿼리가 날라가는 시점
         } catch (Exception e) {
