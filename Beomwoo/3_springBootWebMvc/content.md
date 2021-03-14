@@ -139,3 +139,16 @@
 - 그리고 그 결과를 `HttpServletRequest` 객체에 담아서 제공한다.
 - **임시 저장소 기능**: 해당 HTTP 요청이 시작부터 끝날 때까지 유지되는 임시 저장소 기능
 - **세션 관리 기능**
+## HTTP ServletRequest - 기본사용법
+## HTTP 요청 데이터 - 개요
+- 주로 3가지 방법을 사용한다.
+    - GET - 쿼리 파라미터
+        - 메세지 바디 없이, 쿼리 파라미터에 데이터를 포함해서 전달.
+        - ex. 검색, 필터, 페이징등에서 많이 사용한다.
+    - POST - HTML Form
+        - 메세지 바디에 쿼리 파라미터 형식으로 전달
+        - ex. 회원가입, 상품주문, HTML Form 사용
+    - HTTP message body
+        - HTTP API에서 주로 사용, JSON, XML, TEXT
+        - 데이터 형식은 주로 JSON 사용
+        - POST, PUT, PATCH
