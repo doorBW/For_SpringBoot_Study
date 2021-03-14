@@ -158,3 +158,13 @@
 - 회원가입, 상품주문 등에서 많이 사용된다.
 - 메세지 바디에 쿼리 파라미터 형식으로 데이터를 전달한다.
 ## HTTP 요청 데이터 - API 메시지바디 - 단순 텍스트
+## HTTP 요청 데이터 - API 메시지바디 - JSON
+- content-type 헤더에 `application/json`
+## HttpServletResponse - 기본 사용법
+- **HTTP 응답 메세지 생성**
+    - HTTP 응답 코드 지정
+    - 헤더생성
+    - 바디생성
+- **편의 기능 제공**
+    - Content-Type, 쿠키, Redirect
+    
