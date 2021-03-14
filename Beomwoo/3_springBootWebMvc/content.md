@@ -168,4 +168,4 @@
 - **편의 기능 제공**
     - Content-Type, 쿠키, Redirect
 ## HttpServletResponse - 단순 텍스트, HTML
-
+## HttpServletResponse - API JSON
