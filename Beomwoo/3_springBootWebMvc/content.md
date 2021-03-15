@@ -169,3 +169,5 @@
     - Content-Type, 쿠키, Redirect
 ## HttpServletResponse - 단순 텍스트, HTML
 ## HttpServletResponse - API JSON
+# 3, 서블릿, JSP, MVC 패턴
+## 회원관리 웹 애플리케이션 요구사항
