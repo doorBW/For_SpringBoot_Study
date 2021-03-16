@@ -186,3 +186,6 @@
     - 컨트롤러
     - 모델
     - 뷰
+## MVC 패턴 - 적용
+- redirect VS forward
+- 컨트롤러와 view 로직 변경이 되었다!
