@@ -189,3 +189,8 @@
 ## MVC 패턴 - 적용
 - redirect VS forward
 - 컨트롤러와 view 로직 변경이 되었다!
+## MVC 패턴 - 한계
+- forward 중복
+- 사용하지 않는 코드
+    - request, response
+- **공통 처리가 어렵다**
