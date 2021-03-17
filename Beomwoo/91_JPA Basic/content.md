@@ -209,4 +209,7 @@ public void setTeam(Team team) {
     entity.getClass().getname() 출력
     - 프록시 강제 초기화   
     org.hibernate.Hibernate.initialize(entity)
-    
+### 즉시 로딩과 지연 로딩
+- 단순히 Member만 조회할때도 Team을 가져와야 하는걸까?   
+-> `fetch = FetchType.LAZY`: 지연로딩   
+-> `fetch = FetchType.EAGER`: 즉시로딩
