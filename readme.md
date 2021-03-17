@@ -12,6 +12,8 @@
 |2021.02.24.|스프링핵심원리</br>섹션 3. 스프링 핵심 원리 이해2 - 객체 지향 원리 적용|개인 일정으로 인해 별도 스터디 진행하지 못하고, 다음주 TODO만 설정|-|
 |2021.03.03.|스프링핵심원리</br>섹션 4,5,6|내용 공유!|-|
 |2021.03.10.|스프링핵심원리</br>섹션 7,8,9,10||-|
+|2021.03.17.|스프링 MVC</br>섹션 0,1,2||-|
+|||||
    
 
 ## 1. Spring Boot Starter
@@ -19,3 +21,6 @@
 
 ## 2. Spring Boot Basic
 - 김영한님의 스프링핵심원리([강의링크](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-%ED%95%B5%EC%8B%AC-%EC%9B%90%EB%A6%AC-%EA%B8%B0%EB%B3%B8%ED%8E%B8#))
+
+## 3. Spring Web MVC
+- 김영한님의 스프링 MVC([강의링크](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-mvc-1/dashboard))

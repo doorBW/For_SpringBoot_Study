@@ -187,3 +187,26 @@ public void setTeam(Team team) {
 - entity가 아니다 -> 테이블과 매핑되는 것이 아니다.
 - 상속관계가 아니다.
 - 직접 선언해서 이용할 일이 없기에 추상클래스를 권장
+
+## 7. 프록시와 연관관계 관리
+### 프록시
+- 왜 써야할까?
+    - em.find() / em.getReference
+    - em.getReference() -> ~$HibernateProxy$~
+    - 즉, 데이터베이스 조회를 미루는 가짜(프록시) 엔티티 객체
+- 프록시의 특징
+    - 프록시 객체는 처음 사용할 때 한번만 초기화
+    - 프록시 객체를 초기활 할때, 프록시 객체가 실제 엔티티로 바뀌는 것은 아님!, 초기화되면 프록시 객체를 통해서 실제 엔티티에 접근 가능!
+    - 프록시 객체는 원본 엔티티를 상속받음, 따라서 **타입 체크시 주의**해야함   
+    (== 비교 실패, 대신 Instance of 사용)
+    - 영속성 컨텍스트에 찾는 엔티티가 이미 있으면, em.getReference()를 호출해도 실제 엔티티 반환   
+    -> 그 반대도 마찬가지.
+    - 영속성 컨텍스트의 도움을 받을 수 없는 준영속 상태일 때, 프록시를 초기화하면 문제 발생
+- 프록시 확인
+    - 프록시 인스턴스의 초기화 여부 확인   
+    PersistenceUnitUtil.isLoaded(Object entity)
+    - 프록시 클래스 확인 방법   
+    entity.getClass().getname() 출력
+    - 프록시 강제 초기화   
+    org.hibernate.Hibernate.initialize(entity)
+    
