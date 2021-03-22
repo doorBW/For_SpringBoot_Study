@@ -18,6 +18,7 @@
 - 하나의 쓰레드는 하나의 코드(요청)만 실행한다.
 
 - 쓰레드 장단점
+
   - 장점
     - 동시 요청 처리
   - 단점
@@ -33,6 +34,7 @@
 ## 서블릿
 
 ### 프로젝트 생성
+
 롬복 등 필요한 플러그인 설치
 
 ### Hello 서블릿
@@ -41,6 +43,51 @@
 
 ### HttpServletRequest 개요
 
+임시 저장소 기능
+
+- 저장: `request.setAttribute(name, value)`
+- 조회: `request.getAttribute(name)`
+
 ### HttpServletRequest 기본 사용법
 
 ### HTTP 요청 데이터 - 개요
+
+주로 3가지 방법으로 사용
+
+- GET - 쿼리 파라미터
+
+- POST - HTML Form
+
+- HTTP message body
+
+### HTTP 요청 데이터 - GET 쿼리 파라미터
+
+- 검색, 필터, 페이징에서 많이 사용함
+
+### HTTP 요청 데이터 - POST HTML Form
+
+- `request.getParamter()`는 쿼리 파라미터와 POST Form 파라미터 둘 다 지원한다.
+
+### HTTP 요청 데이터 - API 메세지 바디 - 단순 텍스트
+
+### HTTP 요청 데이터 - API 메시지 바디 - JSON
+
+- 보통 json 그대로 쓰지 않고 객체로 변경해서 사용한다.
+
+- json을 자바 객체로 변환할려면, jackson, gson 같은 라이브러리를 사용해야 한다. 스프링 부투는 jackson을 기본적으로 제공해준다.
+
+### HttpServletResponse - 기본 사용법
+
+- HTTP 응답코드 지정
+- 헤더 생성
+- 바디 생성
+
+### HTTP 응답 데이터 - 단순 텍스트, HTML
+
+- 단순 텍스트 응답
+- HTML 응답
+- HTTP API - message body json
+
+### HTTP 응답 데이터 - API JSON
+
+- application/json은 스펙상 utf-8을 사용하다록 되어 있어서 따로 charset을 안 해줘도 된다.
