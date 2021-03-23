@@ -252,3 +252,4 @@ JSP의 경우 InternalResourceView(JstlView) 를 반환하는데, 내부에 forw
     1. 디스패처 서블릿이 조회한 SimpleControllerHandlerAdapter 를 실행하면서 핸들러 정보도 함께 넘겨준다.
     2. SimpleControllerHandlerAdapter 는 핸들러인 OldController 를 내부에서 실행하고, 그 결과를
 반환한다.
+## 뷰 리졸버
