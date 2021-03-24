@@ -253,3 +253,4 @@ JSP의 경우 InternalResourceView(JstlView) 를 반환하는데, 내부에 forw
     2. SimpleControllerHandlerAdapter 는 핸들러인 OldController 를 내부에서 실행하고, 그 결과를
 반환한다.
 ## 뷰 리졸버
+## 스프링MVC - 시작하기
