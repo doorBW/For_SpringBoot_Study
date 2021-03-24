@@ -254,3 +254,4 @@ JSP의 경우 InternalResourceView(JstlView) 를 반환하는데, 내부에 forw
 반환한다.
 ## 뷰 리졸버
 ## 스프링MVC - 시작하기
+## 스프링MVC - 컨트롤러 통합
