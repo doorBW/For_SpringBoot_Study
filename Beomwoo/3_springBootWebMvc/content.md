@@ -258,3 +258,8 @@ JSP의 경우 InternalResourceView(JstlView) 를 반환하는데, 내부에 forw
 ## 스프링MVC - 실용적인 방식
 
 # 6. 스프링 MVC - 기본 기능
+## 로깅 간단히 알아보기
+- 로깅 라이브러리
+    - SLF$J: 인터페이스
+    - Logback: 구현체
+
