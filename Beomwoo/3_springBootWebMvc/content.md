@@ -262,4 +262,4 @@ JSP의 경우 InternalResourceView(JstlView) 를 반환하는데, 내부에 forw
 - 로깅 라이브러리
     - SLF$J: 인터페이스
     - Logback: 구현체
-
+## 요청 매핑
