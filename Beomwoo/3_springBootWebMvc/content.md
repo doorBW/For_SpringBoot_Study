@@ -264,3 +264,4 @@ JSP의 경우 InternalResourceView(JstlView) 를 반환하는데, 내부에 forw
     - Logback: 구현체
 ## 요청 매핑
 ## 요청 매핑 - API 예시
+## HTTP 요청 - 기본, 헤더 조회
