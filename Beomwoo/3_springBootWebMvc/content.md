@@ -208,3 +208,66 @@
     - 핸들러 어댑터
     - 핸들러
 ## 유연한 컨트롤러2 - v5
+# 5. 스프링 MVC 구조 이해
+## 스프링 MVC 전체 구조
+- **직접 만든 프레임워크** -> **스프링 MVC 비교**
+- FrontController -> DispatcherServlet
+- handlerMappingMap -> HandlerMapping
+- MyHandlerAdapter -> HandlerAdapter
+- ModelView -> ModelAndView
+- viewResolver -> ViewResolver
+- MyView -> View
+- **DispacherServlet 서블릿 등록**
+
+- **동작 순서**
+1. 핸들러 조회: 핸들러 매핑을 통해 요청 URL에 매핑된 핸들러(컨트롤러)를 조회한다.
+2. 핸들러 어댑터 조회: 핸들러를 실행할 수 있는 핸들러 어댑터를 조회한다.
+3. 핸들러 어댑터 실행: 핸들러 어댑터를 실행한다.
+4. 핸들러 실행: 핸들러 어댑터가 실제 핸들러를 실행한다.
+5. ModelAndView 반환: 핸들러 어댑터는 핸들러가 반환하는 정보를 ModelAndView로 변환해서
+반환한다.
+6. viewResolver 호출: 뷰 리졸버를 찾고 실행한다.
+JSP의 경우: InternalResourceViewResolver 가 자동 등록되고, 사용된다.
+7. View 반환: 뷰 리졸버는 뷰의 논리 이름을 물리 이름으로 바꾸고, 렌더링 역할을 담당하는 뷰 객체를
+반환한다.
+JSP의 경우 InternalResourceView(JstlView) 를 반환하는데, 내부에 forward() 로직이 있다.
+8. 뷰 렌더링: 뷰를 통해서 뷰를 렌더링 한다.
+
+## 핸들러 매핑과 핸들러 어댑터
+- **HandlerMapping**
+    - 0순위: RequestMappingHandlerMapping: 애노테이션 기반의 컨트롤러인 @RequestMapping에서 사용
+    - 1순위: BeanNameUrlHandlerMapping: 스프링 빈의 이름으로 핸들러를 찾는다.
+- **HandlerAdapter**
+    - 0순위: RequestMappingHandlerAdapter: 애노테이션 기반의 컨트롤러인 @RequestMapping에서 사용
+    - 1순위: HttpRequestHandlerAdapter: HttpRequestHandler 처리
+    - 2순위: SimpleControllerAdapter: Controller 인터페이스(애노테이션x, 과거에 사용) 처리
+
+1. 핸들러 매핑으로 핸들러 조회
+    1. HandlerMapping 을 순서대로 실행해서, 핸들러를 찾는다.
+    2. 이 경우 빈 이름으로 핸들러를 찾아야 하기 때문에 이름 그대로 빈 이름으로 핸들러를 찾아주는 BeanNameUrlHandlerMapping 가 실행에 성공하고 핸들러인 OldController 를 반환한다.
+2. 핸들러 어댑터 조회
+    1. HandlerAdapter 의 supports() 를 순서대로 호출한다.
+    2. SimpleControllerHandlerAdapter 가 Controller 인터페이스를 지원하므로 대상이 된다.
+3. 핸들러 어댑터 실행
+    1. 디스패처 서블릿이 조회한 SimpleControllerHandlerAdapter 를 실행하면서 핸들러 정보도 함께 넘겨준다.
+    2. SimpleControllerHandlerAdapter 는 핸들러인 OldController 를 내부에서 실행하고, 그 결과를
+반환한다.
+## 뷰 리졸버
+## 스프링MVC - 시작하기
+## 스프링MVC - 컨트롤러 통합
+## 스프링MVC - 실용적인 방식
+
+# 6. 스프링 MVC - 기본 기능
+## 로깅 간단히 알아보기
+- 로깅 라이브러리
+    - SLF$J: 인터페이스
+    - Logback: 구현체
+## 요청 매핑
+## 요청 매핑 - API 예시
+## HTTP 요청 - 기본, 헤더 조회
+## HTTP 요청 - 쿼리 파라미터, HTML Form
+## HTTP 요청 - @RequestParam
+    - 타입이 단순 타입이고, param이름을 변수명으로 받으면 `@RequestParam` 도 생략가능하다.
+## HTTP 요청 - @ModelAttribute
+## HTTP 요청 메시지 - 단순 텍스트
+## HTTP 요청 메시지 - JSON
