@@ -268,3 +268,4 @@ JSP의 경우 InternalResourceView(JstlView) 를 반환하는데, 내부에 forw
 ## HTTP 요청 - 쿼리 파라미터, HTML Form
 ## HTTP 요청 - @RequestParam
     - 타입이 단순 타입이고, param이름을 변수명으로 받으면 `@RequestParam` 도 생략가능하다.
+## HTTP 요청 - @ModelAttribute
