@@ -273,3 +273,7 @@ JSP의 경우 InternalResourceView(JstlView) 를 반환하는데, 내부에 forw
 ## HTTP 요청 메시지 - JSON
 ## HTTP 응답 - 정적 리소스, 뷰 템플릿
 ## HTTP 응답 - HTTP API, 메시지 바디에 직접 입력
+## HTTP 메시지 컨버터
+- `HttpMessageConverters`: HTTP요청, HTTP응답 둘다 사용된다.
+- `canRead()`,`canWrite()`: 메시지 컨버터가 해당 클래스, 미디어 타입을 지원하는지 체크
+- `read()`, `write()`: 메시지 컨버터를 통해서 메시지를 읽고 쓰는 기능
