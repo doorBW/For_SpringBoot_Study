@@ -272,3 +272,4 @@ JSP의 경우 InternalResourceView(JstlView) 를 반환하는데, 내부에 forw
 ## HTTP 요청 메시지 - 단순 텍스트
 ## HTTP 요청 메시지 - JSON
 ## HTTP 응답 - 정적 리소스, 뷰 템플릿
+## HTTP 응답 - HTTP API, 메시지 바디에 직접 입력
