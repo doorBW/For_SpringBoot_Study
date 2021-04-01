@@ -277,3 +277,4 @@ JSP의 경우 InternalResourceView(JstlView) 를 반환하는데, 내부에 forw
 - `HttpMessageConverters`: HTTP요청, HTTP응답 둘다 사용된다.
 - `canRead()`,`canWrite()`: 메시지 컨버터가 해당 클래스, 미디어 타입을 지원하는지 체크
 - `read()`, `write()`: 메시지 컨버터를 통해서 메시지를 읽고 쓰는 기능
+## 요청 매핑 헨들러 어뎁터 구조
